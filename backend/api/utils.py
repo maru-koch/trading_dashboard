@@ -10,16 +10,18 @@ from .data import usersJson
 import json
 
 
-@dataclass
 class GenerateTrade():
     """ 
     A class that generates a profit and loss trades for the specified user
     @params
     :user: instance of the User model
     """
-    user:User=None
+
     day_opened:int=None
     day_closed:int=None
+
+    def __init__(self, user) -> None:
+        self.user = user
 
     def generate(self, number_of_trades=10) -> None:
         """ Generates for a particular user """
@@ -50,8 +52,6 @@ class GenerateTrade():
                 amount, balance, comment = self.profit_loss(open_price, closed_price, unit)
                 trade_history= History(trade=trade, amount=amount, balance=balance, comment=comment)
                 trade_history.save()
-
-                time.sleep(0.3)
 
     def get_price(self) -> float:
         """ Generates random price between -1 and 2 """
@@ -84,7 +84,9 @@ class GenerateTrade():
         
         global comment 
         _returned_amount = (open_price - closed_price) * 10 * (unit/100000)
+
         fund = Fund.objects.get(user=self.user)
+
         if _returned_amount <= 0:
             comment = 'loss'
             fund.amount -= _returned_amount
@@ -108,14 +110,14 @@ class UserTrades:
         if not self.users.exists():
             users = json.load(usersJson)
             for user in users:
-                user = User(*user)
+                user = User(**user)
                 user.save()
                 self.user_queue.put(user)
             self.user_queue.put(None)
 
     def generate_trades(self):
         """ Generate 10 trades for each user """
-        
+
         while True:
             user = self.user_queue.get()
             if user is None:
