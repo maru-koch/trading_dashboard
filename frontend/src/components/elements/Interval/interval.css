@@ -1,0 +1,22 @@
+
+.interval__container{
+    width: 100%;
+    height: 100%;
+    padding: 20px 15px;
+
+}
+
+.interval__wrapper{
+    display:flex;
+}
+
+.date__wrapper{
+    margin-left: 40px;
+    gap: 20px;
+}
+
+.interval__date input{
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-2-color)
+}

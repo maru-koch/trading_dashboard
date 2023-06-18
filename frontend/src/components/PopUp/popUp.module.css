@@ -1,0 +1,42 @@
+
+.pop__container{
+    width: 400px;
+    height: 250px;
+    border-radius: 10px;
+    background-color: #fff;
+    position: relative;
+    transition: 1s ease-in;
+}
+
+.pop__wrapper{
+   
+}
+
+.pop__title{
+    background-color: var(--header-color)
+}
+
+.pop__title h2{
+    color:var(--primary-color);
+    text-align: center;
+    padding: 10px;
+}
+.pop__content{
+    text-align: center;
+    font-size: 1rem;
+    font-family: Poppins;
+    padding: 20px;
+    font-weight: 300;
+
+}
+
+.pop__btn{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    height:50px;
+    position:absolute;
+    bottom:20px;
+    right:0;
+    left:0;
+}

@@ -1,0 +1,33 @@
+.total__energy_container{
+    width: 100%;
+    height: 100%;
+    background-color:#FCF3F3;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    box-shadow: 3px 2px 3px rgba(0, 0, 0, 0.1)
+}
+.total__energy_wrapper{
+    display:flex;
+    height: 100px;
+    width: 100px;
+}
+
+.total__energy_total{
+    display:grid;
+    place-items: center;
+    padding: 10px;
+}
+
+.total__unit{
+    margin-top: 10px;
+}
+
+.dotGreen{
+    background-color: yellowgreen;
+    height: 10px;
+    width: 10px;
+    border-radius:50%;
+    
+}
