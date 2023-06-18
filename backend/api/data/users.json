@@ -1,0 +1,72 @@
+[
+    {
+        "username":"ahmed01",
+        "first_name":"ahmed",
+        "last_name": "Muteri",
+        "email":"ahmed@gmail.com",
+        "password":"ahmed@001"
+    },
+    {
+        "username":"ayo01",
+        "first_name":"bamidele",
+        "last_name": "Otubela",
+        "email":"otubee@gmail.com",
+        "password":"otubee@00x"
+    },
+    {
+        "username":"ifecoxy",
+        "first_name":"Ifeanyi",
+        "last_name": "Okonje",
+        "email":"ifijekon@gmail.com",
+        "password":"ifeanyi@00y"
+    },
+    
+    {
+        "username":"yetunes",
+        "first_name":"yetunde",
+        "last_name": "Adewale",
+        "email":"adewale@gmail.com",
+        "password":"wale@001"
+    },
+    {   "username":"Oboringa",
+        "first_name":"Obama",
+        "last_name": "Muteri",
+        "email":"obama@gmail.com",
+        "password":"obama@001"
+    },
+    {
+        "username":"ahmed02",
+        "first_name":"ahmed",
+        "last_name": "Muteri",
+        "email":"ahmed@gmail.com",
+        "password":"ahmed@001"
+    },
+    {
+        "username":"ahmed03",
+        "first_name":"ahmed",
+        "last_name": "Muteri",
+        "email":"ahmed@gmail.com",
+        "password":"ahmed@001"
+    },
+    {   
+        "username":"ahmed04",
+        "first_name":"ahmed",
+        "last_name": "Muteri",
+        "email":"ahmed@gmail.com",
+        "password":"ahmed@001"
+    },
+    {
+        "username":"ahmed05",
+        "first_name":"ahmed",
+        "last_name": "Muteri",
+        "email":"ahmed@gmail.com",
+        "password":"ahmed@001"
+    },
+    {
+        "username":"ahmed06",
+        "first_name":"ahmed",
+        "last_name": "Muteri",
+        "email":"ahmed@gmail.com",
+        "password":"ahmed@001"
+    }
+]
