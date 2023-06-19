@@ -48,12 +48,12 @@ class Fund(models.Model):
     currency=models.CharField(max_length=255, choices=TRADE_CURRENCY, default='usd')
 
     def __str__(self) -> str:
-        return self.amount
+        return f"{self.amount}"
 
 class TradeSummary(models.Model):
     trade = models.OneToOneField(Trade, on_delete=models.CASCADE, related_name="summary")
     amount = models.IntegerField(default=0.0, blank=True)
-    balance = models.DecimalField(default=0.0, blank=True)
+    balance = models.DecimalField(default=0.0, decimal_places=2, max_digits=7, blank=True)
     comment = models.CharField(max_length=200, default='loss', blank=True)
 
     def __str__(self) -> str:

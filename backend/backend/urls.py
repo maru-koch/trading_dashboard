@@ -22,6 +22,6 @@ api_router = routers.DefaultRouter()
 api_router.register('users', UserViewSet, basename="users")
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/v1/', include(api_router.urls))
 ]
