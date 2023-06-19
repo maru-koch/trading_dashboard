@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 CUSTOM_APPS =[
     'api',
     'rest_framework',
-    'rest_framework.auth'
+    'rest_framework.authtoken',
 ]
 
 INSTALLED_APPS = [
@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-]
+    'django.contrib.staticfiles'
+] + CUSTOM_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +56,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+REST_FRAMEWORKS={
+    'DEFAULT_PERMISSION_CLASSES':{
+        'rest_framework.permissions.IsAuthenticated'
+    },
+    'DEFAULT_AUTHENTICATION_CLASSES':{
+        'rest_framework.authentications.TokenAuthentication'
+    }
+}
 
 TEMPLATES = [
     {
@@ -90,10 +99,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'ft9ja_db',
-        # 'ENFORCE_SCHEMA':'False',
-        # 'CLIENT':{
-        #     'HOST':''
-        # }
     }
 }
 

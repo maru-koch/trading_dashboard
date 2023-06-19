@@ -2,11 +2,12 @@ import time
 import random
 from datetime import datetime
 from multiprocessing import Process
+from threading import Thread
 from dataclasses import dataclass
 from django.contrib.auth.models import User
 from .models import Trade, Pair, Fund, History
 from queue import Queue
-from .data import usersJson
+from pathlib import Path
 import json
 
 
@@ -79,7 +80,7 @@ class GenerateTrade():
 
         return date_
 
-    def profit_loss(self, open_price:float, closed_price:float, unit:int) -> tuple(int, int, str):
+    def profit_loss(self, open_price:float, closed_price:float, unit:int) -> tuple([int, int, str]):
         """ Estimates if the trader made profit or loss and the balance at the end of the trade """
         
         global comment 
@@ -97,24 +98,36 @@ class GenerateTrade():
         return _returned_amount, balance, comment
 
 
-class UserTrades:
+class Trader:
 
     user_queue = Queue(20)
 
     def __init__(self, users:list=[]) -> None:
-        self.users = User.objects.all()
+        pass
     
     def create_users(self):
         """ Creates ten new users if there are no users in the database """
 
-        if not self.users.exists():
-            users = json.load(usersJson)
-            for user in users:
-                user = User(**user)
-                user.save()
-                self.user_queue.put(user)
-            self.user_queue.put(None)
+        trades_thread = Thread(target=self.generate_trades)
+        trades_thread.start()
 
+        json_file_path = Path.joinpath(Path.cwd(__file__), 'data', 'users.json')
+
+        print("path:", json_file_path)
+
+        with open(json_file_path, 'r') as users_json:
+            users = json.load(users_json)
+
+        for user in users:
+            user = User(**user)
+            user.save()
+            self.user_queue.put(user)
+
+        self.user_queue.put(None)
+        #: Generate trades for each created user
+        
+        return User.objects.all()
+        
     def generate_trades(self):
         """ Generate 10 trades for each user """
 
