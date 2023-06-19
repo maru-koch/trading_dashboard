@@ -28,10 +28,10 @@ class Pair(models.Model):
 class Trade(models.Model):
     """ The Trade(s) made by the User """
     id = models.UUIDField(primary_key=True, default=uuid4(), unique=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trades')
     units = models.IntegerField(default=1000)
     pair = models.ForeignKey(Pair, related_name='trades', on_delete=models.CASCADE)
-    Open_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100)
+    open_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100)
     date_opened = models.DateTimeField(auto_now_add = True)
     close_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100, blank=True)
     date_closed = models.DateTimeField(auto_now = True, blank=True)
@@ -50,11 +50,11 @@ class Fund(models.Model):
     def __str__(self) -> str:
         return self.amount
 
-
-class History(models.Model):
-    trade = models.ForeignKey(Trade, on_delete=models.CASCADE)
-    amount = models.IntegerField(default=0)
-    comment = models.CharField(max_length=200, default='loss')
+class TradeSummary(models.Model):
+    trade = models.OneToOneField(Trade, on_delete=models.CASCADE, related_name="summary")
+    amount = models.IntegerField(default=0.0, blank=True)
+    balance = models.DecimalField(default=0.0, blank=True)
+    comment = models.CharField(max_length=200, default='loss', blank=True)
 
     def __str__(self) -> str:
         return f"{self.trade.id}-{self.amount}-{self.comment}"
@@ -63,8 +63,7 @@ class History(models.Model):
 def create_user_token(sender, instance, created, **kwargs):
     """ Creates a token for a new created User """
     if created:
-        token = Token.objects.update_or_create(user=instance)
-        instance.token = token.key
+        Token.objects.update_or_create(user=instance)
 
 @receiver(post_save, sender=User)
 def credit_user(sender, instance, created, **kwargs):

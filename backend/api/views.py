@@ -18,7 +18,7 @@ class UserViewSet(ModelViewSet):
         try:
             #if not users.exists():
             new_users = self.create_users()
-            print('CREATED USERS', new_users)
+           
             # for user in new_users:
             #     print("USER:", user)
             #     user.save()

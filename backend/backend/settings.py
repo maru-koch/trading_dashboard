@@ -37,7 +37,7 @@ CUSTOM_APPS =[
 ]
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -65,6 +65,8 @@ REST_FRAMEWORKS={
         'rest_framework.authentication.TokenAuthentication'
     }
 }
+
+#AUTH_USER_MODEL = 'account.User'
 
 TEMPLATES = [
     {
