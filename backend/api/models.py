@@ -27,7 +27,7 @@ class Pair(models.Model):
 
 class Trade(models.Model):
     """ The Trade(s) made by the User """
-    id = models.UUIDField(primary_key=True, default=uuid4(), unique=True)
+    # id = models.UUIDField(primary_key=True, default=uuid4(), unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trades')
     units = models.IntegerField(default=1000)
     pair = models.ForeignKey(Pair, related_name='trades', on_delete=models.CASCADE)
