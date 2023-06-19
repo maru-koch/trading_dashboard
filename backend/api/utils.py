@@ -1,11 +1,11 @@
 import time
+from django.contrib.auth.models import User
 import random
 from datetime import datetime
 import multiprocessing as mp
 from threading import Thread
 from dataclasses import dataclass
-from django.core.exceptions import AppRegistryNotReady
-from django.contrib.auth.models import User
+
 from .models import Trade, Pair, Fund, History
 from queue import Queue
 from pathlib import Path
@@ -107,10 +107,10 @@ class GenerateTrade():
 class Trader:
 
     user_queue = Queue(20)
-    pool = mp.Pool(mp.cpu_count)
+    pool = mp.Pool(mp.cpu_count())
 
     def add_user_to_queue(self, user):
-        print("ADD TO QUEUE")
+        print("ADD TO QUEUE", user)
         password = user.pop('password')
         user = User(**user)
         user.set_password(password)
@@ -122,15 +122,17 @@ class Trader:
     def create_users(self):
         """ Creates ten new users if there are no users in the database """
        
+        # fetch users
         users = self.fetch_users()
-        add_thread = Thread(target=self.add_user_to_queue, args=(users,))
-        add_thread.start()
         
-        trades_thread = Thread(target=self.generate_trades)
-        trades_thread.start()
-        trades_thread.join()
+        #: Add to Queue
+        self.pool.apply_async(self.add_user_to_queue, args=(users,))
         
-        return User.objects.all()
+        # trades_thread = Thread(target=self.generate_trades)
+        # trades_thread.start()
+        # trades_thread.join()
+        
+        # return User.objects.all()
         
     def generate_trades(self, user):
         """ Generate 10 trades for each user """
