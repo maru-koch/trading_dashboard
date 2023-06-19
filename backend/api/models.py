@@ -63,8 +63,8 @@ class History(models.Model):
 def create_user_token(sender, instance, created, **kwargs):
     """ Creates a token for a new created User """
     if created:
-        Token.objects.create(user=instance)
-        instance.token.save()
+        token = Token.objects.update_or_create(user=instance)
+        instance.token = token.key
 
 @receiver(post_save, sender=User)
 def credit_user(sender, instance, created, **kwargs):

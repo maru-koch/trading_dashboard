@@ -1,14 +1,17 @@
 import time
 import random
 from datetime import datetime
-from multiprocessing import Process
+import multiprocessing as mp
 from threading import Thread
 from dataclasses import dataclass
+from django.core.exceptions import AppRegistryNotReady
 from django.contrib.auth.models import User
 from .models import Trade, Pair, Fund, History
 from queue import Queue
 from pathlib import Path
+import os
 import json
+
 
 
 class GenerateTrade():
@@ -23,10 +26,12 @@ class GenerateTrade():
 
     def __init__(self, user) -> None:
         self.user = user
+        self.user.save()
+        print('Generating trades ... for ', self.user)
 
     def generate(self, number_of_trades=10) -> None:
         """ Generates for a particular user """
-
+        print('GENERATING TRADE FOR >>:', self.user)
         if self.user is not None:
             unit = 1000 # Micro Lot
             pair = Pair(base="usd", quote="eur")
@@ -98,45 +103,55 @@ class GenerateTrade():
         return _returned_amount, balance, comment
 
 
+@dataclass
 class Trader:
 
     user_queue = Queue(20)
+    pool = mp.Pool(mp.cpu_count)
 
-    def __init__(self, users:list=[]) -> None:
-        pass
-    
+    def add_user_to_queue(self, user):
+        print("ADD TO QUEUE")
+        password = user.pop('password')
+        user = User(**user)
+        user.set_password(password)
+        self.user_queue.put(user)
+        print('user', user)
+        user.save()
+        
+
     def create_users(self):
         """ Creates ten new users if there are no users in the database """
-
+       
+        users = self.fetch_users()
+        add_thread = Thread(target=self.add_user_to_queue, args=(users,))
+        add_thread.start()
+        
         trades_thread = Thread(target=self.generate_trades)
         trades_thread.start()
+        trades_thread.join()
+        
+        return User.objects.all()
+        
+    def generate_trades(self, user):
+        """ Generate 10 trades for each user """
+        try:
+            while True:
+                user = self.user_queue.get()
+                if user is None:
+                    break
+                trade = GenerateTrade(user=user)
+                process = Process(target=trade.generate)
+                process.start()
+        except Exception as error:
+            print(error)
 
-        json_file_path = Path.joinpath(Path.cwd(__file__), 'data', 'users.json')
+    def fetch_users(self):
+        """ Gets the users to be created from the json file """
 
-        print("path:", json_file_path)
+        path_to_utils_py = os.path.dirname(os.path.realpath(__file__))
+        json_file_path = os.path.join(path_to_utils_py, 'data', 'users.json')
 
         with open(json_file_path, 'r') as users_json:
             users = json.load(users_json)
 
-        for user in users:
-            user = User(**user)
-            user.save()
-            self.user_queue.put(user)
-
-        self.user_queue.put(None)
-        #: Generate trades for each created user
-        
-        return User.objects.all()
-        
-    def generate_trades(self):
-        """ Generate 10 trades for each user """
-
-        while True:
-            user = self.user_queue.get()
-            if user is None:
-                break
-            trade = GenerateTrade(user=user)
-            process = Process(target=trade.generate)
-            process.start()
-            process.join()
-
+        return users

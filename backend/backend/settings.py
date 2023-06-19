@@ -59,10 +59,10 @@ ROOT_URLCONF = 'backend.urls'
 
 REST_FRAMEWORKS={
     'DEFAULT_PERMISSION_CLASSES':{
-        'rest_framework.permissions.IsAuthenticated'
+        'rest_framework.permission.IsAuthenticated'
     },
     'DEFAULT_AUTHENTICATION_CLASSES':{
-        'rest_framework.authentications.TokenAuthentication'
+        'rest_framework.authentication.TokenAuthentication'
     }
 }
 

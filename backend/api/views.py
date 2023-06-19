@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from api.serializers import UserSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from api.utils import Trader
 from django.contrib.auth.models import User
+from django.db.utils import DatabaseError
 # Create your views here.
 
 class UserViewSet(ModelViewSet):
@@ -11,10 +14,17 @@ class UserViewSet(ModelViewSet):
     authentication_classes=[]
 
     def get_queryset(self):
-        users = User.objects.all()
-        if not users.exists():
-            users = self.create_users()
-        return users
+        #users = 
+        try:
+            #if not users.exists():
+            new_users = self.create_users()
+            print('CREATED USERS', new_users)
+            # for user in new_users:
+            #     print("USER:", user)
+            #     user.save()
+            # return User.objects.all()
+        except DatabaseError as err:
+            print(err)
     
     def create_users(self):
         trader = Trader()
