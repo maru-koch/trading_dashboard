@@ -27,10 +27,10 @@ class Pair(models.Model):
 
 class Trade(models.Model):
     """ The Trade(s) made by the User """
-    # id = models.UUIDField(primary_key=True, default=uuid4(), unique=True)
+    id = models.UUIDField(primary_key=True, default=uuid4, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trades')
     units = models.IntegerField(default=1000)
-    pair = models.ForeignKey(Pair, related_name='trades', on_delete=models.CASCADE)
+    pair = models.ForeignKey(Pair, on_delete=models.CASCADE)
     open_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100)
     date_opened = models.DateTimeField(auto_now_add = True)
     close_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100, blank=True)
@@ -57,19 +57,13 @@ class TradeSummary(models.Model):
     comment = models.CharField(max_length=200, default='loss', blank=True)
 
     def __str__(self) -> str:
-        return f"{self.trade.id}-{self.amount}-{self.comment}"
+        return f"{self.amount}-{self.balance}-{self.comment}"
 
 @receiver(post_save, sender=User)
 def create_user_token(sender, instance, created, **kwargs):
     """ Creates a token for a new created User """
     if created:
         Token.objects.update_or_create(user=instance)
-
-@receiver(post_save, sender=User)
-def credit_user(sender, instance, created, **kwargs):
-    """ Automatically credit user with $100 when created """
-    fund = Fund(user=instance, amount=100, currency='usd')
-    fund.save()
 
 # @receiver(post_save, sender=User)
 # def generate_trades(sender, instance, created, **kwargs):

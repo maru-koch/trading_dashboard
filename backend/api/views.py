@@ -10,21 +10,20 @@ from django.db.utils import DatabaseError
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
-    permission_classes=[]
+    permission_classes=[AllowAny]
     authentication_classes=[]
 
     def get_queryset(self):
-        #users = 
-        try:
+        # try:
             #if not users.exists():
-            new_users = self.create_users()
+            # new_users = self.create_users()
            
             # for user in new_users:
             #     print("USER:", user)
             #     user.save()
-            # return User.objects.all()
-        except DatabaseError as err:
-            print(err)
+        return User.objects.all()
+        # except DatabaseError as err:
+        #     print(err)
     
     def create_users(self):
         trader = Trader()

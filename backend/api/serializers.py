@@ -25,13 +25,11 @@ class TradeSerializer(serializers.ModelSerializer):
     summary models through the related names
     
     """
-
-    pair = PairSerializer()
-    summary = TradeSummarySerializer()
+    #summary = TradeSummarySerializer()
 
     class Meta:
         model=Trade
-        fields=('id', 'unit', 'pair', 'open_price', 'opened_date', 'close_price', 'closed_date', 'is_closed', 'summary')
+        fields=('id', 'units', 'pair_id', 'open_price', 'date_opened', 'close_price', 'date_closed', 'is_closed')
 
 
 class UserSerializer(serializers.ModelSerializer):
