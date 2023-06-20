@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 
 CUSTOM_APPS =[
     'api',
+    'api.account',
     'rest_framework',
     'rest_framework.authtoken',
 ]
@@ -72,7 +73,7 @@ REST_FRAMEWORKS={
     }
 }
 
-#AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'account.User'
 
 TEMPLATES = [
     {

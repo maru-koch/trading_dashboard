@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from django.contrib.auth.models import User
 from .models import Trade, Pair, Fund, TradeSummary
 from queue import Queue
+from decimal import Decimal
 import os
 import json
 
@@ -83,23 +84,32 @@ class GenerateTrade():
         print("DATE:", date_)
         return date_
 
-    def profit_loss(self, open_price:float, closed_price:float, unit:int) -> tuple([int, int, str]):
+    def profit_loss(self, open_price:float, closed_price:float, unit:int, fund) -> tuple([int, int, str]):
         """ Estimates if the trader made profit or loss and the balance at the end of the trade """
         
         global comment 
-        _returned_amount = (open_price - closed_price) * 10 * (unit/100000)
 
-        fund = Fund.objects.get(user=self.user)
+        price_diff = float(closed_price - open_price)
+        percentage_lot = unit/100000
+
+        _returned_amount =  price_diff * 10 * percentage_lot
+
+        print(_returned_amount, price_diff, percentage_lot)
+
+        profit_loss = Decimal.from_float(_returned_amount)
 
         if _returned_amount <= 0:
             comment = 'loss'
-            fund.amount -= _returned_amount
+            fund.amount += profit_loss
         else:
             comment = 'profit'
-            fund.amount += _returned_amount
+            fund.amount += profit_loss
+
         balance = fund.amount
-        print("TRADE HISTORY:", _returned_amount, balance, comment)
-        return _returned_amount, balance, comment
+        fund.save()
+        print("TRADE HISTORY:", round(_returned_amount, 2),  round(balance, 2))
+        return round(_returned_amount, 2), round(balance, 2), comment
+
 
 
 class Trader:

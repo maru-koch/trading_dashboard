@@ -1,17 +1,18 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from api.account.models import User
 from .models import Trade, Fund, Pair, TradeSummary
 
 
 class PairSerializer(serializers.ModelSerializer):
     class Meta:
         model=Pair
-        fields="__all__"
+        fields=('base', 'quote')
 
 class FundSerializer(serializers.ModelSerializer):
     class Meta:
         model=Fund
-        fields="__all__"
+        fields=('amount', 'currency')
+
 
 class TradeSummarySerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,12 +26,13 @@ class TradeSerializer(serializers.ModelSerializer):
     summary models through the related names
     
     """
-    #summary = TradeSummarySerializer()
+    pair = Pair()
+    summary = TradeSummarySerializer(read_only=True)
 
     class Meta:
         model=Trade
-        fields=('id', 'units', 'pair_id', 'open_price', 'date_opened', 'close_price', 'date_closed', 'is_closed')
-
+        fields=('id', 'units', 'pair', 'open_price', 'date_opened', 'close_price', 'date_closed', 'is_closed', 'summary')
+        dept=2
 
 class UserSerializer(serializers.ModelSerializer):
     
@@ -40,11 +42,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     """
 
-    trades = TradeSerializer()
+    trades = TradeSerializer(many=True)
     fund = FundSerializer()
 
     class Meta:
         model=User
         fields=('id', 'username', 'first_name', 'last_name', 'email', 'fund', 'trades')
+        dept=2
 
 

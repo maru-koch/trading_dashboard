@@ -4,7 +4,7 @@ from api.serializers import UserSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from api.utils import Trader
-from django.contrib.auth.models import User
+from api.account.models import User
 from django.db.utils import DatabaseError
 # Create your views here.
 
@@ -28,3 +28,6 @@ class UserViewSet(ModelViewSet):
     def create_users(self):
         trader = Trader()
         return trader.create_users()
+    
+
+    
