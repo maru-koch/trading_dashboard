@@ -1,0 +1,72 @@
+.signin__container{
+  width: 400px;
+  transition: 0.5s ease-in-out;
+}
+
+.signin__wrapper{
+  margin: 20px;
+}
+.signin-wrapper-signin-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 36px 0 40px 0;
+}
+
+.signin-wrapper-email {
+  margin-bottom: 32px;
+}
+
+.signin-wrapper-email h3 {
+  margin: 0 0 8px 8px;
+}
+
+.signin-wrapper-password {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.signin-wrapper-password h3 {
+  margin: 0 0 8px 8px;
+}
+
+.signin-wrapper-remember-me {
+  margin-bottom: 40px;
+}
+
+.signin-wrapper-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.signin-wrapper-divider {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 24px;
+}
+
+.signin-wrapper-google-button {
+  margin-bottom: 24px;
+}
+
+.signin-main-footer-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.signin-main-footer-text h4:nth-child(1) {
+  margin-right: 5px;
+}
+
+.error{
+  color: rgb(248, 87, 87);
+  padding-top: 5px;
+  padding-left: 5px;
+}

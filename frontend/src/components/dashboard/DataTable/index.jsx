@@ -1,6 +1,6 @@
-import {Table, ExportCSV } from '../../elements'
+import {Table,} from '../../elements'
 
-export const DataTable=({data, average, total, maximum, minimum})=>{
+export const DataTable=()=>{
     // Displays the energy consumption for a device
     // shows estimated total, average, minimum, and maximum
 return(

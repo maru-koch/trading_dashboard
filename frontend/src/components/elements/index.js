@@ -10,7 +10,6 @@ export * from './Total/total';
 export * from './Table/table';
 export * from './Text';
 export * from './Metrics/metrics';
-export * from './ExportCSV';
 export * from './Sections'
 export * from './Card'
 export * from './Logo'

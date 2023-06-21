@@ -1,4 +1,4 @@
-import {DashCard } from '../../molecules/DashCard'
+import {DashCard } from './DashCard'
 
 
 export const DashCardHolder=()=>{

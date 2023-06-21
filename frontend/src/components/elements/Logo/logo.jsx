@@ -1,4 +1,4 @@
-import logo from '../../../assets/images/dotgrid_logo.png'
+import logo from '../../../assets/logo.png'
 import classes from './logo.module.css'
 import { useNavigate } from 'react-router-dom'
 

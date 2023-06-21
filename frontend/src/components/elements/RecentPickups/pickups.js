@@ -1,0 +1,38 @@
+export const pickups = [
+  {
+    id: 1,
+    pickupId: '03733',
+    measurement: 9,
+    points: 123,
+    status: 'Approved',
+    pickupDate: '12-03-2022',
+    collectionOfficer: 'Dayo',
+  },
+  {
+    id: 2,
+    pickupId: '73937',
+    measurement: 11,
+    points: 130,
+    status: 'Approved',
+    pickupDate: '12-03-2022',
+    collectionOfficer: 'Dayo',
+  },
+  {
+    id: 3,
+    pickupId: '73830',
+    measurement: 12,
+    points: 140,
+    status: 'Approved',
+    pickupDate: '12-03-2022',
+    collectionOfficer: 'Dayo',
+  },
+  {
+    id: 4,
+    pickupId: '73733',
+    measurement: 15,
+    points: 150,
+    status: 'Approved',
+    pickupDate: '12-03-2022',
+    collectionOfficer: 'Dayo',
+  },
+];
