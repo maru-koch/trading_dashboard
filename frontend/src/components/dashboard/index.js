@@ -1,4 +1,4 @@
-export * from './DashCardHolder'
+export * from './CardHolder'
 export * from './DashHeader'
 export * from './DataTable'
 export * from './SideBar'

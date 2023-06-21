@@ -1,0 +1,36 @@
+.card{
+    padding:10px;
+    width: 100%;
+    margin: 0 20px;
+    background: radial-gradient(var(--main-color), rgb(34, 61, 34));
+}
+
+.card h2, .card p{
+    padding:0;
+    margin:0;
+}
+.card_row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card_title{
+    color: aliceblue;
+}
+
+.card_metric{
+    color:var(--side-bar-color)
+}
+
+.card_trend{
+    color:var(--primary-color)
+}
+
+.card_arrow{
+    color: var(--side-bar-color)
+}
+.card_icon{
+    color:var(--side-bar-color)
+}
+

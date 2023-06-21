@@ -1,13 +1,22 @@
-import { DashCardHolder } from "../../DashCardHolder";
-import {Table, Graph} from '../../../elements'
+import { CardHolder } from "../../CardHolder";
+import {Table, Graph, Interval, Metrics} from '../../../elements'
 
 
 
 export const Trader = () => (
     <div className="trader">
         <section>
-            <Graph/>
-            <DashCardHolder/>
+            <div style={{display:"grid", gridTemplateColumns:'7fr 3fr'}}>
+                <div> 
+                    <CardHolder/>
+                    <Graph/>
+                </div>
+                
+                <div>
+                    <p></p>
+                </div>
+            </div>
+            
             {/* <Table/> */}
         </section>
     </div>

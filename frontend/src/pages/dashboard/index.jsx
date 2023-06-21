@@ -10,7 +10,7 @@ export const Dashboard=()=>{
             </div>
             <div className="content">
                 <DashHeader/>
-                {/* <Outlet/> */}
+                <Outlet/> 
             </div>
         </div>
     )

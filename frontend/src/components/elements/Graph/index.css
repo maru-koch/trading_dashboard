@@ -8,8 +8,17 @@
    justify-content: space-between;
    background-attachment: var(--background-color);
    align-items: center;
+   padding: 1rem 2rem;
 }
 
+
+.graph__header h2, .graph__header p{
+    margin: 0;
+    padding: 0;
+}
+.graph__header p{
+    margin-bottom: 5px;
+}
 .graph__header ul{
     display: flex;
     gap:5px;
@@ -24,4 +33,18 @@
     font-size: 12px;
     box-shadow: 2px 3px 5px rgb(206, 223, 237);
     cursor: pointer;
+}
+
+/* .graph_chart{
+    width: 100%;
+    background-color: red;
+} */
+
+.graph_mixed_chart{
+    padding:0;
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }

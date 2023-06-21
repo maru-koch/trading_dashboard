@@ -1,9 +1,7 @@
 import {Routes, Route} from 'react-router-dom'
 import './App.css';
-import { DashCard } from './components/dashboard/DashCardHolder/DashCard';
 import { Home } from './components/dashboard';
 import { Dashboard } from './pages';
-import { TraderDetail, Trader } from './components/dashboard'
 
 // import {Home, Users, UserDetail} from './components/dashboard'
 
