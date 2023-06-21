@@ -13,6 +13,7 @@ export * from './Metrics/metrics';
 export * from './Sections'
 export * from './Card'
 export * from './Logo'
+export * from './Graph'
 
 export { Loader } from './Loader'
 export { ListItem } from './ListItem'

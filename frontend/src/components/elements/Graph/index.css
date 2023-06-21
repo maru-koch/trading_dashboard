@@ -1,7 +1,27 @@
 
 .graph__container{
-    width: 100%;
+    padding: 10px;
+    background-color: white;
 }
-.graph__title{
-    padding: 20px;
+.graph__header{
+   display: flex;
+   justify-content: space-between;
+   background-attachment: var(--background-color);
+   align-items: center;
+}
+
+.graph__header ul{
+    display: flex;
+    gap:5px;
+    list-style: none;
+}
+
+.graph__header ul li{
+    border-radius: 8px;
+    padding: 5px 10px;
+    background-color: aliceblue;
+    color:var(--main-color);
+    font-size: 12px;
+    box-shadow: 2px 3px 5px rgb(206, 223, 237);
+    cursor: pointer;
 }

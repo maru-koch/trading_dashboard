@@ -1,8 +1,15 @@
+import { DashCardHolder } from "../../DashCardHolder";
+import {Table, Graph} from '../../../elements'
+
 
 
 export const Trader = () => (
     <div className="trader">
-        <p>Trader</p>
+        <section>
+            <Graph/>
+            <DashCardHolder/>
+            {/* <Table/> */}
+        </section>
     </div>
   );
   

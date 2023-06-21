@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 
 import { Admin} from "./Admin/admin";
 import { Trader } from "./Trader/trader"
-
+import './home.css'
 export const Home=()=>{
 
-    const [user, setUser] = useState()
+    const [user, setUser] = useState({name:'amed', is_admin:false})
 
     return (
-        <div>
-            {user.is_admin?<Admin/>:<Trader/>}
+        <div className={'home'}>
+            {user.is_admin?<Admin/>:<Trader/>} 
         </div>
     )
 }

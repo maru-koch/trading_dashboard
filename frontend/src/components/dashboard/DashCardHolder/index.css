@@ -1,0 +1,11 @@
+.card_container{
+    padding:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_container_wrapper{
+    display: flex;
+    justify-content: space-evenly;
+}

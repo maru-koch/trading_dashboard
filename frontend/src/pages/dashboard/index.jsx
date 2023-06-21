@@ -1,19 +1,16 @@
 import { SideBar, DashHeader } from "../../components/dashboard"
+import { Outlet } from "react-router-dom"
 import './index.css'
-export const Dashboard=({children})=>{
+
+export const Dashboard=()=>{
     return (
-        <div className="overview">
+        <div className="dashboard">
             <div className="sidebar">
-                <SideBar />
+                <SideBar/>
             </div>
             <div className="content">
-                <div className="header">
-                    <DashHeader/>
-                </div>
-                <div className="dashboard_sub">
-                {/* Index | Users | UserDetail */}
-                    {children}
-                </div>
+                <DashHeader/>
+                {/* <Outlet/> */}
             </div>
         </div>
     )

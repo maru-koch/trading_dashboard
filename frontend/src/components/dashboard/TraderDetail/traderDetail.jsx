@@ -1,7 +1,7 @@
 
 
 export const TraderDetail = () => (
-    <div className="trader">
+    <div className={"trader"}>
         <p>Trader Detail</p>
     </div>
   );

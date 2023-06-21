@@ -1,36 +1,10 @@
 .dash-navbar {
-  height: 75px;
+  height: 70px;
   background-color: var(--side-bar-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'Circular Std', sans-serif;
-  padding:0 4rem;
+  padding: 0 4rem;
 }
 
-.name-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  width: 30px;
-  background-color: #fef7ec;
-  border-radius: 50%;
-}
 
-.name-holder {
-  display: flex;
-  min-width: 200px;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 10px;
-}
-
-.name-holder p {
-  color: white;
-}
-
-.h-space {
-  width: 20px;
-  display: inline-block;
-}

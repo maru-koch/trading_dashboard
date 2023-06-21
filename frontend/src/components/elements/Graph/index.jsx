@@ -26,9 +26,19 @@ export const Graph=({row, column})=>{
 return(
     <main className="graph__container">
          <section className="graph__wrapper">
-            <div className="graph__title">
-               <h2>Display Graph</h2>
+            <div className="graph__header">
+                <div className="graph__title">
+                    <p>Total Earnings</p>
+                    <h2>$ 460, 000</h2>
+                </div>
+                <ul className="intervals">
+                    <li>1d</li>
+                    <li>1w</li>
+                    <li>1y</li>
+                    <li>all</li>
+                </ul>
             </div>
+            
             <div className="graph__chart">
                 <div className="graph__chart_">
                     <div className="mixed-chart">
