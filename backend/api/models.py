@@ -28,10 +28,9 @@ class Pair(models.Model):
 
 class Trade(models.Model):
     """ The Trade(s) made by the User """
-
-    id = models.UUIDField(primary_key=True, default=uuid4, unique=True)
+    # id = models.UUIDField(primary_key=True, default=uuid4, unique=True)
     trader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='trades')
-    units = models.IntegerField(default=1000)
+    units = models.IntegerField(default=1)
     pair = models.ForeignKey(Pair, on_delete=models.CASCADE)
     open_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100)
     date_opened = models.DateTimeField(auto_now_add = True)
@@ -69,16 +68,16 @@ def create_user_token(sender, instance, created, **kwargs):
     if created:
         Token.objects.update_or_create(user=instance)
 
-@receiver(post_save, sender=Trade)
-def create_trade_summary(sender, instance, created, **kwargs):
-    fund = instance.trader.fund
-    if instance.is_closed: 
-        open_price = instance.open_price
-        closed_price = instance.close_price
-        unit = instance.units
-        amount, balance, comment = profit_loss(open_price, closed_price, unit, fund)
-        summary = TradeSummary(instance.id, amount=str(amount), balance=str(balance), comment=comment)
-        summary.save()
+# @receiver(post_save, sender=Trade)
+# def create_trade_summary(sender, instance, created, **kwargs):
+#     fund = instance.trader.fund
+#     if instance.is_closed: 
+#         open_price = instance.open_price
+#         closed_price = instance.close_price
+#         unit = instance.units
+#         amount, balance, comment = profit_loss(open_price, closed_price, unit, fund)
+#         summary = TradeSummary(instance.id, amount=str(amount), balance=str(balance), comment=comment)
+#         summary.save()
 
 
  
