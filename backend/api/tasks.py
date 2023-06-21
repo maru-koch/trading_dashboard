@@ -12,7 +12,7 @@ from api.account.models import User
 day_opened:int=None
 day_closed:int=None
 
-
+@shared_task
 def create_users():
     """ Creates ten new users if there are no users in the database """
     print("CREATING USER")
@@ -49,9 +49,9 @@ def create_trades(user, pair, units, fund):
                     is_closed=True
                     )
     trade.save()
-    # amount, balance, comment = profit_loss(open_price, closed_price, units, fund)
-    # trade_history= TradeSummary(trade=trade, amount=amount, balance=balance, comment=comment)
-    # trade_history.save()
+    amount, balance, comment = profit_loss(open_price, closed_price, units, fund)
+    trade_history= TradeSummary(trade=trade, amount=amount, balance=balance, comment=comment)
+    trade_history.save()
 
 def generate_user_trades(user, number_of_trades=10) -> None:
     """ Generates for a particular user """
@@ -73,7 +73,8 @@ def generate_user_trades(user, number_of_trades=10) -> None:
 
 def get_price() -> float:
     """ Generates random price between -1 and 2 """
-    price = (random.randint(-1, 2) * 0.1) + 0.5
+    #price = (random.randint(-1, 2) * 0.1) + 0.5
+    price = (random.randint(-1, 2))
     return price
     
 def get_date(isOpenDate=True) -> datetime:
@@ -88,11 +89,13 @@ def get_date(isOpenDate=True) -> datetime:
         if isOpenDate:
             if not day_opened:
                 day_opened = date.day
-                return day_opened
+                return date.day
             elif day_opened <= date.day:
                 day_opened += + 1
                 if day_opened <= 30:
                     return day_opened
+                else:
+                    return day_opened - 2
         else:
             while day_opened <= day_closed:
                 day_closed = random.randrange(day_opened, day_opened + 2)
@@ -110,11 +113,12 @@ def profit_loss(open_price:float, closed_price:float, unit:int, fund) -> tuple([
     global comment 
 
     price_diff = float(closed_price - open_price)
+
     percentage_lot = unit/100000
 
-    _returned_amount =  price_diff * 10 * percentage_lot
+    _returned_amount =  (price_diff * 10 * percentage_lot) * float(fund.amount)
 
-    print(_returned_amount, price_diff, percentage_lot)
+    print(_returned_amount, type(_returned_amount))
 
     profit_loss = Decimal.from_float(_returned_amount)
 

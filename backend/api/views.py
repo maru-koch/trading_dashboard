@@ -15,7 +15,7 @@ class UserViewSet(ModelViewSet):
     def get_queryset(self):
         users = User.objects.all()
         if not users.exists():
-            create_users.delay()
+            create_users()
         return users
        
     
