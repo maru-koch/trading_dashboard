@@ -1,54 +1,47 @@
 import React, {useState} from 'react';
 import { Text, Input, Button, SectionImage } from '../../components/elements';
+import { toast, ToastContainer} from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
-
-
 import { useDispatch, useSelector } from 'react-redux';
-import { AUTH_ACTIONS } from '../../../store/reducer/auth/reducerSlice';
+import { AUTH_ACTIONS } from '../../store_/auth_slice';
 import { validate } from './validation'
-import logo from '../../../assets/images/dotgrid_logo.png'
+import logo from '../../assets/logo.png'
 import './signin.css';
 
-
-// ../store/reducer/auth/authSlice'
 const initialValues = {
-  'email':'',
+  'username':'',
   'password':''
 }
-export const SignIn = () => {
 
-  const [formData, setFormData] = useState(initialValues)
+export const SignInPage = () => {
+
+  const [form_data, setFormData] = useState(initialValues)
   const [error, setError] = useState({})
 
+  const navigate = useNavigate()
+  // auth is the name specified in the store
   const { loading } = useSelector((state) => state.auth);
   
   const dispatch = useDispatch();
 
-  const { logInUser } = AUTH_ACTIONS;
+  const { logInUser, login } = AUTH_ACTIONS;
 
-  const navigate = useNavigate()
 
     const onChangeHandler=(e)=>{
-      setFormData({...formData, [e.target.name]:e.target.value })
+      setFormData({...form_data, [e.target.name]:e.target.value})
       
     }
 
     const onSubmitHandler = (e) => {
       e.preventDefault();
-      const errors = validate(formData)
 
-      // check if there is an error, if true, trigger a toast
-      // else dispatch logInUser action
+      const errors = validate(form_data)
       
       if (errors){
             setError(errors)
         }
         
-      const validated_data = new FormData();
-      validated_data.append('email', formData.email);
-      validated_data.append('email', formData.password);
-      dispatch(logInUser(formData));
-     
+      dispatch(login(form_data));
     }
 
 
@@ -61,9 +54,9 @@ export const SignIn = () => {
                 <SectionImage image={logo} imageStyle={{width:'100%', height:'auto', cursor: 'pointer'}}/>
             </div>
             <div className="signin-wrapper-email">
-                <Text.Heading text="Email Address" size={16} weight={450} level={3} />
-                <Input.FullRound name="email" type="email" placeholder="" onChange={onChangeHandler} />
-                {error?<p className="error">{error.email}</p>:''}
+                <Text.Heading text="User name" size={16} weight={450} level={3} />
+                <Input.FullRound name="username" type="email" placeholder="" onChange={onChangeHandler} />
+                {error?<p className="error">{error.username}</p>:''}
             </div>
             <div className="signin-wrapper-password">
                 <Text.Heading text="Password" size={16} weight={450} level={3} />

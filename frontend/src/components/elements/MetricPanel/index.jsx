@@ -7,14 +7,11 @@ return(
     <>
     <main className="metrics__container">
         <div className="metrics__wrapper">
-            <section className="metrics__top">
-                <InputDropdown />
-            </section>
-            <section className="metrics__bottom">
-                <Metrics />
-                <Metrics />
-                <Metrics />
-            </section>
+         
+            <Metrics num={16} title={'Active Accounts'} />
+            <Metrics num={56} title={'Transfers'}/>
+            <Metrics num={34} title={'Request'}/>
+       
         </div>
     </main>
     </>

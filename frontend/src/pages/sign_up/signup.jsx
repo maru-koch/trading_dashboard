@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Text, Input, Button } from '../../components/elements';
-import { Link, Navigate } from 'react-router-dom';
+import { toast, ToastContainer} from 'react-toastify'
+import { Link } from 'react-router-dom';
 import { validate } from './validation'
 import { useDispatch, useSelector} from 'react-redux'
-// import { AUTH_ACTIONS } from '../../../store/reducer/auth/reducerSlice';
+import { AUTH_ACTIONS } from '../../store_/auth_slice';
 import './style.css';
 
 const initialState={
@@ -13,35 +14,29 @@ const initialState={
   password: '',
 }
 
-export const SignUp = () => {
-
+export const SignUpPage = () => {
   const dispatch = useDispatch();
+
   const [formData, setFormData] = useState(initialState)
   const [error, setError] = useState({})
-  // const { signUpUser } = AUTH_ACTIONS
-  
   const { registered } = useSelector(state => state.auth)
 
   // Take user to the confirm-email page if registration is successfu
-  if (registered){
-    return <Navigate to="/confirm-email"/>
-  }
-
-    // const notify =()=>{
-    // if (registered){
-    //   toast.success('Successfully registered')
-    // }else if(registered === false){
-    //   toast.warning('Email already exist')
-    // }else{
-    //   toast.error("Registration failed. check your internet connection")
-    // }}
+ 
+    const notify =()=>{
+    if (registered){
+      toast.success('Successfully registered')
+    }else if(registered === false){
+      toast.warning('Email already exist')
+    }else{
+      toast.error("Registration failed. check your internet connection")
+    }}
    
   const onChangeHandler=e=>{
     setFormData({...formData, [e.target.name]:e.target.value})
   }
-
   const onSubmitHandler=(e)=>{
-      // notify()
+       notify()
       e.preventDefault();
 
       // validate form data
@@ -49,7 +44,7 @@ export const SignUp = () => {
       if (errors) {
         setError(errors)
       }
-      // dispatch(signUpUser(formData)) 
+      dispatch(AUTH_ACTIONS.signUpUser(formData)) 
   }
 
    return (
@@ -116,7 +111,7 @@ export const SignUp = () => {
 
 }
 
-{/* <ToastContainer
+<ToastContainer
       position="top-center"
       autoClose={5000}
       hideProgressBar
@@ -126,5 +121,5 @@ export const SignUp = () => {
       pauseOnFocusLoss
       draggable
       pauseOnHover
-    /> */}
+    /> 
 

@@ -9,10 +9,10 @@ return(
     <main className="metric__container">
          <section className="metric__wrapper">
             <div className="metric__number">
-                <h2>{4.82}</h2>
+                <h2>{num}</h2>
             </div>
             <div className="metri__title">
-                <p>{"AVERAGE"}</p>
+                <p>{title}</p>
             </div>
         </section>
     </main>

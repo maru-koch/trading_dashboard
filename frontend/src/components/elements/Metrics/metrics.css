@@ -1,7 +1,6 @@
 
 .metric__container{
     width: 100%;
-    height: 100%;
     display: grid;
     place-items: center;
 }
@@ -9,19 +8,30 @@
 .metric__wrapper{
     width: 150px;
     height: 70px;
-    background-color: #FCF3F3;
-    display:flex;
+    background-color:aliceblue;
     align-items:center;
+    display: flex;
     justify-content:center;
-    flex-direction:column;
     border-radius: 8px;
-    margin:20px;
     box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.2);
     
 }
 
+.metric__wrapper h2 p{
+    margin:0;
+    padding:0;
+}
+
+.metric__wrapper h2{
+    font-size: 2rem;
+    font-weight: 800;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 10px;
+    box-shadow: 2px 3px 5px white;
+    color:var(--main-color)
+}
+
 .metric__number{
-    padding: 2px;
     font-family: Poppins;
 }
 

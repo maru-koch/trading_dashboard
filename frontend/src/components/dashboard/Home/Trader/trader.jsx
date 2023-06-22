@@ -1,5 +1,5 @@
 import { CardHolder } from "../../CardHolder";
-import {Table, Graph, Interval, Metrics} from '../../../elements'
+import {Table, Graph, Interval, Metrics, MetricHolder} from '../../../elements'
 
 
 

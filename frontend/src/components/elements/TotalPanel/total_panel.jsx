@@ -1,5 +1,5 @@
 
-import { Text, Interval, Total} from "../../elements"
+import { Text, Interval, Total} from ".."
 import './index.css'
 
 export const TotalPanel=({total, start, end})=>{
@@ -15,14 +15,13 @@ const TEXT_STYLE={
 return(
     <>
     <main className="total__container">
+        <div className="transactions">
+            <h2>Transactions</h2>
+        </div>
         <div className="total__wrapper">
-            <section className="total__right">
-                <Text text="TOTAL POWER CONSUMPTION" style ={TEXT_STYLE}/>
-                <Interval start={start} end={end}/>
-            </section>
-            <section className="total__right">
-                <Total total={total} />
-            </section>
+            
+            <Interval start={start} end={end}/>
+           
         </div>
     </main>
     </>

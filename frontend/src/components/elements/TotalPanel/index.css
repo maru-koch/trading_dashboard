@@ -8,3 +8,14 @@
     border: 1px solid var(--accent-2-color);
     border-radius: 8px;
 }
+
+.transactions{
+    padding: 0 20px;
+}
+
+.transactions h2{
+    font-weight: 600;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    color: gray;
+}
