@@ -13,7 +13,7 @@ const PrivateOutlet = () => {
   const { isAuthorized: isAuth} = useSelector(state => state.auth);
 
   const location = useLocation()
-  if (!isAuth) {
+  if (!true) {
         return <Navigate to="/" state={{ from: location }}/>;
       }
   return (
@@ -34,7 +34,7 @@ const ProtectedOutlet = () => {
   console.log(store.auth)
 
   console.log('IS AUTH?', isAuth)
-  return !isAuth ? (
+  return !true ? (
     <AuthLayout>
       <Suspense fallback="loading...">
         <Outlet />
@@ -50,7 +50,7 @@ function App() {
   return (
     <>
       <Routes>
-          <Route path="/" element={<ProtectedOutlet auth={}/>}>
+          <Route path="/" element={<ProtectedOutlet/>}>
               <Route index element={<SignInPage setAuth={setAuth}/>} />
               <Route path= 'signup' element={<SignUpPage />} />
           </Route>

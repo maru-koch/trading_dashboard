@@ -3,21 +3,31 @@ import Chart from "react-apexcharts";
 import './index.css'
 
 const initialState ={
-  
+      fill: {
+        colors: ['#F44336', '#E91E63', '#9C27B0']
+      },
       options: {
         chart: {
           id: "basic-bar"
         },
-
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 90, 100]
+          }
+        },
         xaxis: {
           categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,22,23]
         }
       },
-
       series: [
         {
-          name: "series-1",
-          data: [0.3, 0.4, 0.5, 0.5, 4.9, 0.6, 0.7, 0.9, 0.3, 0.4, 0.5, .5, .9, 0.6, .7, .8]
+          name: "trades",
+          data: [3.0, 22.17, 51.0, -5, -15, 16, 27, 19, 31, 41, 15, -5, .9, 0.6, .7, 20],
+          
         }
       ],
     };
