@@ -1,0 +1,21 @@
+
+.total__wrapper{
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.1);
+    padding-left: 10px;
+    background-color: rgb(255, 254, 254);
+    border: 1px solid var(--accent-2-color);
+    border-radius: 8px;
+}
+
+.transactions{
+    padding: 0 20px;
+}
+
+.transactions h2{
+    font-weight: 600;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    color: gray;
+}

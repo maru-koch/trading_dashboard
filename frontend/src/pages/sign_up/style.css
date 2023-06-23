@@ -1,0 +1,78 @@
+.signup-wrapper-signup-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 36px 0 40px 0;
+}
+
+.signup-wrapper-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.signup-col-firstname :nth-child(1),
+.signup-col-lastname :nth-child(1) {
+  margin: 0 0 8px 8px;
+}
+
+.signup-wrapper-email {
+  margin-bottom: 32px;
+}
+
+.signup-wrapper-email h3 {
+  margin: 0 0 8px 8px;
+}
+
+.signup-wrapper-phone {
+  margin-bottom: 32px;
+}
+
+.signup-wrapper-phone h3 {
+  margin: 0 0 8px 8px;
+}
+
+.signup-wrapper-password {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.signup-wrapper-password h3 {
+  margin: 0 0 8px 8px;
+}
+
+.signup-wrapper-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.signup-wrapper-divider {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 24px;
+}
+
+.signup-wrapper-google-button {
+  margin-bottom: 24px;
+}
+
+.signup-main-footer-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.signup-main-footer-text h4:nth-child(1) {
+  margin-right: 5px;
+}
+.error {
+  color: rgb(248, 87, 87);
+  padding-top: 5px;
+  padding-left: 5px;
+}

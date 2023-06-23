@@ -25,8 +25,6 @@ export const Table=({rate_per_hour})=>{
 
 // Retrieve the data for the specified device
 let arrData=Object.keys(data[1]["device_2"])
-
-
 return(
     <main className="table__container">
         <SelectDate/>

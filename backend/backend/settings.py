@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+# DATABASE CONNECTION
+# 
+# 
+
+# import mongoengine
+# mongoengine.connect(db="ft9ja_db", host="localhost:27017", username="", password="1234")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,15 +31,18 @@ SECRET_KEY = 'django-insecure-7@^d@tezpvqw92d3u+_rn9ayx7wpo8o-_c$dp=7%ej+z%g1h=)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
 CUSTOM_APPS =[
     'api',
+    'api.account',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_celery_results',
+    'corsheaders'
 ]
 
 INSTALLED_APPS = [
@@ -46,6 +55,7 @@ INSTALLED_APPS = [
 ] + CUSTOM_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,12 +69,14 @@ ROOT_URLCONF = 'backend.urls'
 
 REST_FRAMEWORKS={
     'DEFAULT_PERMISSION_CLASSES':{
-        'rest_framework.permissions.IsAuthenticated'
+        'rest_framework.permission.IsAuthenticated'
     },
     'DEFAULT_AUTHENTICATION_CLASSES':{
-        'rest_framework.authentications.TokenAuthentication'
+        'rest_framework.authentication.TokenAuthentication'
     }
 }
+
+AUTH_USER_MODEL = 'account.User'
 
 TEMPLATES = [
     {
@@ -98,10 +110,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
+        'ENFORCE_SCHEMA': False,
         'NAME': 'ft9ja_db',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -143,3 +155,28 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CELERY CONFIGURATION
+CELERY_TIME_ZONE='Africa/Lagos'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+# CELERY_RESULT_BACKEND = "django-db"
+
+# MAIN CELERY CONFIG 
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"
+
+# CELERY_CACHE_BACKEND = "django-cache"
+
+CELERY_CACHE_BACKEND = "default"
+
+CACHES ={
+    "default":{
+         "BACKEND":"django.core.cache.backends.db.DatabaseCache",
+         "LOCATION":"my_cache_table"
+    }
+   
+}

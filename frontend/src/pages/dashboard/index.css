@@ -1,0 +1,9 @@
+.dashboard{
+  display:grid;
+  background-color: var(--background-color);
+  grid-template-columns: 2fr 8fr;
+  height: 100vh;
+  width: 100%;
+}
+
+

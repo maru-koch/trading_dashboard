@@ -1,9 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from uuid import uuid4
+from django.conf import settings
+from decimal import Decimal
 # Create your models here.
 
 TRADE_TYPES =(
@@ -27,58 +28,87 @@ class Pair(models.Model):
 
 class Trade(models.Model):
     """ The Trade(s) made by the User """
-    id = models.UUIDField(primary_key=True, default=uuid4(), unique=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    units = models.IntegerField(default=1000)
-    pair = models.ForeignKey(Pair, related_name='trades', on_delete=models.CASCADE)
-    Open_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100)
+    # id = models.UUIDField(primary_key=True, default=uuid4, unique=True)
+    trader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='trades')
+    units = models.IntegerField(default=1)
+    pair = models.ForeignKey(Pair, on_delete=models.CASCADE)
+    open_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100)
     date_opened = models.DateTimeField(auto_now_add = True)
     close_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=100, blank=True)
     date_closed = models.DateTimeField(auto_now = True, blank=True)
     is_closed = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return f"{self.user}-{self.pair}"
+        return f"{self.trader}-{self.pair}"
     
     
 class Fund(models.Model):
     """ Funds in User's account """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="fund")
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="fund")
     amount = models.DecimalField(default=0.0, decimal_places=2, max_digits=6)
     currency=models.CharField(max_length=255, choices=TRADE_CURRENCY, default='usd')
 
     def __str__(self) -> str:
-        return self.amount
+        return f"{self.amount}"
 
-
-class History(models.Model):
-    trade = models.ForeignKey(Trade, on_delete=models.CASCADE)
-    amount = models.IntegerField(default=0)
-    comment = models.CharField(max_length=200, default='loss')
+class TradeSummary(models.Model):
+    """ Summaries of a closed trade """
+    trade = models.OneToOneField(Trade, on_delete=models.CASCADE, related_name="summary")
+    amount = models.DecimalField(decimal_places=4, max_digits=7, editable=False)
+    balance = models.DecimalField(decimal_places=4, max_digits=7, editable=False)
+    comment = models.CharField(max_length=200, default='loss', editable=False)
 
     def __str__(self) -> str:
-        return f"{self.trade.id}-{self.amount}-{self.comment}"
+        return f"{self.amount}-{self.balance}-{self.comment}"
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_user_token(sender, instance, created, **kwargs):
     """ Creates a token for a new created User """
     if created:
-        Token.objects.create(user=instance)
-        instance.token.save()
+        Token.objects.update_or_create(user=instance)
 
-@receiver(post_save, sender=User)
-def credit_user(sender, instance, created, **kwargs):
-    """ Automatically credit user with $100 when created """
-    fund = Fund(user=instance, amount=100, currency='usd')
+# @receiver(post_save, sender=Trade)
+# def create_trade_summary(sender, instance, created, **kwargs):
+#     fund = instance.trader.fund
+#     if instance.is_closed: 
+#         open_price = instance.open_price
+#         closed_price = instance.close_price
+#         unit = instance.units
+#         amount, balance, comment = profit_loss(open_price, closed_price, unit, fund)
+#         summary = TradeSummary(instance.id, amount=str(amount), balance=str(balance), comment=comment)
+#         summary.save()
+
+
+ 
+
+def profit_loss(open_price:float, closed_price:float, unit:str, fund) -> tuple([int, int, str]):
+    """ Estimates if the trader made profit or loss and the balance at the end of the trade """
+        
+    global comment 
+
+    price_diff = float(closed_price - open_price)
+
+    percentage_lot = unit/100000
+
+    _returned_amount =  (price_diff * 10 * percentage_lot) * float(fund.amount)
+
+    profit_loss = Decimal.from_float(_returned_amount)
+
+    if _returned_amount <= 0:
+        comment = 'loss'
+        fund.amount += profit_loss
+
+    else:
+        comment = 'profit'
+        fund.amount += profit_loss
+
+    balance = fund.amount
     fund.save()
 
-# @receiver(post_save, sender=User)
-# def generate_trades(sender, instance, created, **kwargs):
-#     """ Generates trades for the created User """
-#     trades = GenerateTrade(user=instance)
-#     trades.generate(10)
+    print("TRADE HISTORY:", round(_returned_amount, 2),  round(balance, 2), comment)
 
-
+    return round(_returned_amount, 2), round(balance, 2), comment
 """
 {
     token : auth_token,

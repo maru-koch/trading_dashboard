@@ -1,0 +1,25 @@
+.intro_body {
+  font-family: Circular Std;
+  background-color: var(--accent-2-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  border-left: 7px solid var(--accent-color);
+  max-width: 100%;
+  max-height: 82px;
+}
+
+.intro_body span {
+  font-weight: bold;
+}
+
+.intro_body button {
+  width: 178px;
+  height: 46px;
+}
+
+.intro_body button p {
+  width: 113px;
+  height: 18px;
+}

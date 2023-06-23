@@ -1,0 +1,11 @@
+.card_container{
+    padding: 10px;
+    background-color: var(--background-color);
+}
+
+.card_container_wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+

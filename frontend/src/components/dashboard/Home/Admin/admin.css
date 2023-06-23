@@ -1,0 +1,18 @@
+.side{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+}
+
+.aside h3{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 40px;
+    padding-bottom: .8rem;
+    color: var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+}

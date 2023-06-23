@@ -14,9 +14,14 @@
     margin-left: 40px;
     gap: 20px;
 }
-
+.interval__date{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .interval__date input{
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid var(--accent-2-color)
+    border: 1px solid var(--primary-color);
+    margin:0 10px;
 }

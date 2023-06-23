@@ -1,0 +1,10 @@
+.dash-navbar {
+  height: 70px;
+  background-color: var(--side-bar-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+}
+
+

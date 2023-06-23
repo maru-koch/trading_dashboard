@@ -1,8 +1,9 @@
 :root{
   --main-color: #1d4353;
-  --accent-color: #3aa800;
-  --btn-color:#f77e27;
-  --background-color: #f77e27;
+  --primary-color: #3aa800;
+  --secondary-color:#f77e27;
+  --background-color: #f9f9f9;
+  --side-bar-color:#f0f8ff;
   --font-size:15;
   --font-family:
 }
