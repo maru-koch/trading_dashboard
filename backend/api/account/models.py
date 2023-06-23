@@ -6,7 +6,8 @@ from uuid import uuid4
 # Create your models here.
 
 class CustomUserManager(BaseUserManager):
-    def create(self, email, password=None, **kwargs):
+
+    def create(self, email=None, password=None, **kwargs):
         if email is None:
             raise ValueError('Email cannot be empty')
         if not password:

@@ -59,6 +59,7 @@ def generate_user_trades(user, number_of_trades=10) -> None:
     if user is not None:
         password = user.pop('password')
         user = User(**user)
+        user.is_trader = True
         user.set_password(password)
         user.save(force_insert=True)
         fund = Fund.objects.create(user=user, amount=100, currency="usd")

@@ -39,7 +39,6 @@ class UserSerializer(serializers.ModelSerializer):
     """ 
     Serializes the User model. accesses the trade 
     and fund models through the related names
-
     """
 
     trades = TradeSerializer(many=True)
@@ -47,7 +46,30 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=User
-        fields=('id', 'username', 'first_name', 'last_name', 'email', 'fund', 'trades')
+        fields=('id', 'username', 'first_name', 'last_name', 'password', 'email', 'is_trader', 'fund', 'trades')
         dept=2
+
+    def create(self, validated_data):
+
+        fund = validated_data.pop('fund')
+        trades=validated_data.pop('trades')
+        username = validated_data['username']
+        first_name = validated_data['first_name']
+        last_name = validated_data['last_name']
+        email= validated_data['email']
+        password = validated_data['password']
+        is_trader = validated_data['is_trader']
+
+        user = User.objects.create(
+            username=username, 
+            email=email, 
+            password=password, 
+            first_name=first_name,
+            last_name=last_name,
+            is_trader=is_trader
+            )
+        
+        user.save()
+        return user
 
 
