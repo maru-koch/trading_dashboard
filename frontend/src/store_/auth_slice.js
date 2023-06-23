@@ -13,10 +13,15 @@ const authSlice = createSlice({
     login: async (state, action)=>{
         const res = await api.signin(action.payload)
         if (res.status === 200){
+
+          const token = res.data.token
           state.authorized = true
           state.user = res.data.user
-          localStorage.setItem('token', res.data.token)
+          api.setAuthorization(token)
+          localStorage.setItem('token', token)
         }  
+
+        console.log("USER", state.user)
         }
     }
   }

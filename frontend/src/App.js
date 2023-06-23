@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import {Routes, Route, Navigate, Outlet, useLocation} from 'react-router-dom'
 import { Home, Traders, TraderDetail} from './components/dashboard';
 import { Dashboard, SignInPage, SignUpPage } from './pages';
@@ -6,13 +6,14 @@ import { AuthLayout } from './layout/AuthLayout';
 import { ROUTES } from './paths/routes';
 import { useSelector, useStore} from 'react-redux';
 import './App.css';
+import auth from './api/endpoints';
 
 const PrivateOutlet = () => {
   // requires login to access the outlets
   const { isAuthorized: isAuth} = useSelector(state => state.auth);
 
   const location = useLocation()
-  if (!true) {
+  if (!isAuth) {
         return <Navigate to="/" state={{ from: location }}/>;
       }
   return (
@@ -33,7 +34,7 @@ const ProtectedOutlet = () => {
   console.log(store.auth)
 
   console.log('IS AUTH?', isAuth)
-  return !true ? (
+  return !isAuth ? (
     <AuthLayout>
       <Suspense fallback="loading...">
         <Outlet />
@@ -45,12 +46,12 @@ const ProtectedOutlet = () => {
 };
 
 function App() {
-
+  const [auth, setAuth] = useState({})
   return (
     <>
       <Routes>
-          <Route path="/" element={<ProtectedOutlet/>}>
-              <Route index element={<SignInPage />} />
+          <Route path="/" element={<ProtectedOutlet auth={}/>}>
+              <Route index element={<SignInPage setAuth={setAuth}/>} />
               <Route path= 'signup' element={<SignUpPage />} />
           </Route>
           <Route path='dashboard' element={<PrivateOutlet/>}>

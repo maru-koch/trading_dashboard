@@ -30,7 +30,6 @@ export const SideBar = () => {
   return (
 
     <div className={"sidePanel"}>
-
       <div className="logo" >
         <div className="logo__img" id ="breathing-logo">
              <img src={logo} alt="ft9ja logo" />

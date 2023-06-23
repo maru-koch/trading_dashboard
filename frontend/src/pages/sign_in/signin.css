@@ -1,56 +1,58 @@
 .signin__container{
-  width: 400px;
+  width: 350px;
   transition: 0.5s ease-in-out;
 }
 
 .signin__wrapper{
-  margin: 20px;
+  margin-top: 50px;
 }
-.signin-wrapper-signin-title {
+
+.signin-wrapper.signin-title {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 36px 0 40px 0;
+  margin: 10px 0;
 }
 
-.signin-wrapper-email {
-  margin-bottom: 32px;
+.signin-wrapper.email {
+  margin-bottom: 0px;
 }
 
-.signin-wrapper-email h3 {
+.signin-wrapper.email h3 {
   margin: 0 0 8px 8px;
 }
 
-.signin-wrapper-password {
+.signin-wrapper.password {
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
 }
 
-.signin-wrapper-password h3 {
+.signin-wrapper.password h3 {
   margin: 0 0 8px 8px;
 }
 
-.signin-wrapper-remember-me {
-  margin-bottom: 40px;
+.signin-wrapper.remember-me {
+  margin-bottom: 10px;
 }
 
-.signin-wrapper-button {
+.signin-wrapper.button {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   position: relative;
+  width: 100%;
 }
 
-.signin-wrapper-divider {
+.signin-wrapper.divider {
   display: flex;
   flex-direction: row;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
-.signin-wrapper-google-button {
-  margin-bottom: 24px;
+.signin-wrapper.google-button {
+  margin-bottom: 10px;
 }
 
 .signin-main-footer-text {

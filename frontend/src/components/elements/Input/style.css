@@ -1,11 +1,11 @@
 .form-input {
-  height: 48px;
+  height: 38px;
   background: #ffffff;
   border: 1px solid rgba(2, 80, 2, 0.2);
-  padding: 10px;
   font-size: 14px;
   font-family: Poppins;
   font-weight: 300;
+  padding:5px;
 }
 
 .lg {
@@ -72,7 +72,7 @@
   top: 10px;
   font-weight: 450;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   color: var(--neutral-80);
 }
 

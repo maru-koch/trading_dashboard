@@ -4,6 +4,7 @@ import { toast, ToastContainer} from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AUTH_ACTIONS } from '../../store_/auth_slice';
+import api from '../../api/endpoints'
 import { validate } from './validation'
 import logo from '../../assets/logo.png'
 import './signin.css';
@@ -13,7 +14,7 @@ const initialValues = {
   'password':''
 }
 
-export const SignInPage = () => {
+export const SignInPage = (setAuth, setUser) => {
 
   const [form_data, setFormData] = useState(initialValues)
   const [error, setError] = useState({})
@@ -32,7 +33,7 @@ export const SignInPage = () => {
       
     }
 
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = async (e) => {
       e.preventDefault();
 
       const errors = validate(form_data)
@@ -40,8 +41,10 @@ export const SignInPage = () => {
       if (errors){
             setError(errors)
         }
-        
-      dispatch(login(form_data));
+
+      const res = await api.signin(form_data)
+      setAuth(res.data)
+      console.log(res.data)
     }
 
 
@@ -50,29 +53,24 @@ export const SignInPage = () => {
       {/* <Loader open={loading}/> */}
         <div className ="signin__wrapper">
           <form style={{ position: 'relative' }} onSubmit={onSubmitHandler}>
-            <div className="signin-wrapper-signin-title">
-                <SectionImage image={logo} imageStyle={{width:'100%', height:'auto', cursor: 'pointer'}}/>
-            </div>
-            <div className="signin-wrapper-email">
+            <div className="signin-wrapper email">
                 <Text.Heading text="User name" size={16} weight={450} level={3} />
                 <Input.FullRound name="username" type="email" placeholder="" onChange={onChangeHandler} />
                 {error?<p className="error">{error.username}</p>:''}
             </div>
-            <div className="signin-wrapper-password">
+            <div className="signin-wrapper password">
                 <Text.Heading text="Password" size={16} weight={450} level={3} />
                 <Input.FullRound name="password" type="password" placeholder="" onChange={onChangeHandler} />
                 {error?<p className="error" >{error.password}</p>:''}
             </div>
-            <div className="signin-wrapper-remember-me" >
+            <div className="signin-wrapper remember-me" >
                 <Text.RememberMe navigate ={()=>navigate('/forgot-password')}/>
             </div>
-            <div className="signin-wrapper-button">
+            <div className="signin-wrapper button">
                 {/* <Button type="submit" stretch text="Sign In" onClick={onSubmitHandler}>
                   <Spinner/>
                 </Button> */}
-                <div>
-                <Button type="submit" stretch text="Login" />
-            </div>
+                <Button type="submit" stretch text="Login"/>
             </div>
         </form>
         </div>

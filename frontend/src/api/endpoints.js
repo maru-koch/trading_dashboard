@@ -5,7 +5,20 @@ const api_backend = axios.create({
     baseURL: "http://127.0.0.1:8000/api/v1/",
   });
 
+  
 export const auth ={
+setAuthorization:(token)=>{
+    api_backend.defaults.headers.Authorization = `Bearer ${token}`;
+},
+
+// getAuthorization:()=>{
+//     api_backend.defaults.headers.Authorization?.replace('Bearer ', '');
+// },
+
+// removeAuthorization:()=>{
+//     api_backend.defaults.headers.Authorization;
+// },
+
 signUp: async (formData)=>{
     try{
         const res = await api_backend.post('signup', formData)
