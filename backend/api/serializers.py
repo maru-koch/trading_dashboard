@@ -32,7 +32,7 @@ class TradeSerializer(serializers.ModelSerializer):
     class Meta:
         model=Trade
         fields=('id', 'units', 'pair', 'open_price', 'date_opened', 'close_price', 'date_closed', 'is_closed', 'summary')
-        dept=2
+        depth=2
 
 class UserSerializer(serializers.ModelSerializer):
     
@@ -74,3 +74,18 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+    def to_representation(self, instance):
+        """ modifies the original data being returned to the client. adds the summary as part of the trade"""
+        
+        representation = super().to_representation(instance)
+        modified_trades = []
+        trades = representation['trades']
+        _ = representation.pop('password')
+        for trade in trades:
+            summary = trade.pop('summary')
+            pair = trade.pop('pair')
+            trade.update(summary)
+            trade['pair'] = f"{pair['base']}/{pair['quote']}"
+            modified_trades.append(trade)
+        representation['trades'] = modified_trades
+        return representation

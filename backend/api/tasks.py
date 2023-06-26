@@ -7,29 +7,28 @@ from celery import shared_task, Task, group
 from dataclasses import dataclass
 from .models import Trade, Pair, Fund, TradeSummary
 from api.account.models import User
+from django.db.utils import DatabaseError
 
 
 day_opened:int=None
 day_closed:int=None
 
-@shared_task
+#@shared_task
 def create_users():
     """ Creates ten new users if there are no users in the database """
-    print("CREATING USER")
+
     path_to_utils_py = os.path.dirname(os.path.realpath(__file__))
     json_file_path = os.path.join(path_to_utils_py, 'data', 'users.json')
 
     with open(json_file_path, 'r') as users_json:
         users = json.load(users_json)
-        print(users)
+
 
     # trades = group(generate_user_trades(user) for user in users)
     # trades.apply_async()
 
     for user in users:
         generate_user_trades(user)
-
-    return 'Trades sucessfully generated'
 
 def create_trades(user, pair, units, fund):
 
@@ -49,6 +48,7 @@ def create_trades(user, pair, units, fund):
                     is_closed=True
                     )
     trade.save()
+
     amount, balance, comment = profit_loss(open_price, closed_price, units, fund)
     trade_history= TradeSummary(trade=trade, amount=amount, balance=balance, comment=comment)
     trade_history.save()
@@ -57,21 +57,25 @@ def generate_user_trades(user, number_of_trades=10) -> None:
     """ Generates for a particular user """
    
     if user is not None:
-        password = user.pop('password')
-        user = User(**user)
-        user.is_trader = True
-        user.set_password(password)
-        user.save(force_insert=True)
-        fund = Fund.objects.create(user=user, amount=100, currency="usd")
-        units = 1000 # Micro Lot
-        pair = Pair(base="usd", quote="eur")
-        pair.save()
-        # trades = group((create_trades(user, pair, units, fund)) for _ in range(number_of_trades))
-        # trades.apply_async()
-
-        for _ in range(number_of_trades):
-            create_trades(user, pair, units, fund)
-
+        try:
+            password = user.pop('password')
+            user = User(**user)
+            user.is_trader = True
+            user.is_staff = True
+            user.set_password(password)
+            user.save(force_insert=True)
+            fund = Fund.objects.create(user=user, amount=100, currency="usd")
+            units = 1000 # Micro Lot
+            pair = Pair(base="usd", quote="eur")
+            pair.save()
+            # trades = group((create_trades(user, pair, units, fund)) for _ in range(number_of_trades))
+            # trades.apply_async()
+            for _ in range(number_of_trades):
+                create_trades(user, pair, units, fund)
+        except DatabaseError as err:
+            pass
+        
+            
 def get_price() -> float:
     """ Generates random price between -1 and 2 """
     #price = (random.randint(-1, 2) * 0.1) + 0.5

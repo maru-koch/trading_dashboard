@@ -17,6 +17,18 @@ TRADE_CURRENCY=(
     ('ngn', 'NGN')
 )
 
+TRANSACTION_TYPES=(
+    ('widthdrawal', 'Widthdrawal'),
+    ('deposit', 'Deposit'),
+    ('transfer', 'Transfer'),
+)
+
+STATUS=(
+    ('completed', 'Completed'),
+    ('pending', 'Pending'),
+    ('declined', 'Declined'),
+)
+
 class Pair(models.Model):
     """ A model for the currency pair """
     base = models.CharField(max_length=255)
@@ -54,6 +66,7 @@ class Fund(models.Model):
 
 class TradeSummary(models.Model):
     """ Summaries of a closed trade """
+
     trade = models.OneToOneField(Trade, on_delete=models.CASCADE, related_name="summary")
     amount = models.DecimalField(decimal_places=4, max_digits=7, editable=False)
     balance = models.DecimalField(decimal_places=4, max_digits=7, editable=False)
@@ -68,47 +81,17 @@ def create_user_token(sender, instance, created, **kwargs):
     if created:
         Token.objects.update_or_create(user=instance)
 
-# @receiver(post_save, sender=Trade)
-# def create_trade_summary(sender, instance, created, **kwargs):
-#     fund = instance.trader.fund
-#     if instance.is_closed: 
-#         open_price = instance.open_price
-#         closed_price = instance.close_price
-#         unit = instance.units
-#         amount, balance, comment = profit_loss(open_price, closed_price, unit, fund)
-#         summary = TradeSummary(instance.id, amount=str(amount), balance=str(balance), comment=comment)
-#         summary.save()
 
+class Transaction(models.Model):
+    trader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="transactions")
+    type = models.CharField(max_length=255, choices=TRANSACTION_TYPES, default='widthdrawal')
+    amount = models.IntegerField(default=0)
+    status = models.CharField(choices=STATUS, max_length=255)
+    date = models.DateTimeField(auto_now_add=True)
 
- 
+    def __str__(self) -> str:
+        return self.type
 
-def profit_loss(open_price:float, closed_price:float, unit:str, fund) -> tuple([int, int, str]):
-    """ Estimates if the trader made profit or loss and the balance at the end of the trade """
-        
-    global comment 
-
-    price_diff = float(closed_price - open_price)
-
-    percentage_lot = unit/100000
-
-    _returned_amount =  (price_diff * 10 * percentage_lot) * float(fund.amount)
-
-    profit_loss = Decimal.from_float(_returned_amount)
-
-    if _returned_amount <= 0:
-        comment = 'loss'
-        fund.amount += profit_loss
-
-    else:
-        comment = 'profit'
-        fund.amount += profit_loss
-
-    balance = fund.amount
-    fund.save()
-
-    print("TRADE HISTORY:", round(_returned_amount, 2),  round(balance, 2), comment)
-
-    return round(_returned_amount, 2), round(balance, 2), comment
 """
 {
     token : auth_token,

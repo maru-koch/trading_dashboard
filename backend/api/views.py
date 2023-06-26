@@ -19,7 +19,7 @@ from api.account.models import User
 from api.tasks import create_users
 # Create your views here.
 
-class UserView(ListAPIView):
+class TradersView(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
@@ -29,13 +29,11 @@ class UserDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
-class GenerateUserTrades(APIView):
+class GenerateTrades(APIView):
     def get(self, request):
-        users = User.objects.all()
-        if not users.exists():
-            create_users()
-        return users()
-    
+        task = create_users.delay()
+        return Response({'msg':'generating task', 'task_id':task.id})
+        
 class ClearUsersView(APIView):
     def get(self, request):
         users = User.objects.all()
