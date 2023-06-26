@@ -18,12 +18,15 @@
 .listItem__container p{
     font-size: .9rem; 
     color:var(--main-color);
-    font-family: Mulish;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;;
     font-weight:300;
     align-self: flex-start;
     text-align: left;
 }
 
+.listItem__name{
+    text-align: left;
+}
 .listItem__container .amount{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding-right:20px;

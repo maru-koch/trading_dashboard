@@ -1,32 +1,42 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api from '../api/endpoints';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import api from '../api/endpoints'
 
-// Name of reducer
-const name = 'auth';
+const initialState = {loading:false, isAuthorized:false, user:{}, traders:[]}
 
-const initialState = { registered: null, authorized: false, loading: false, user: {} };
+const logInUser = createAsyncThunk('', async (formData)=>{
+    const res = await api.signin(formData)
+    return res.data
+})
 
-const authSlice = createSlice({
-  name: name,
+const getTraders=createAsyncThunk('get-traders', async ()=>{
+  const res = await api.getAllTraders()
+  return res.data
+})
+
+export const authSlice = createSlice({
+  name:'auth',
   initialState,
   reducers:{
-    login: async (state, action)=>{
-        const res = await api.signin(action.payload)
-        if (res.status === 200){
+    addMember:()=>{}
+  },
 
-          const token = res.data.token
-          state.authorized = true
-          state.user = res.data.user
-          api.setAuthorization(token)
-          localStorage.setItem('token', token)
-        }  
-
-        console.log("USER", state.user)
-        }
-    }
+  extraReducers:(build)=>{
+      build
+      .addCase(logInUser.fulfilled,(state, action)=>{
+        state.isAuthorized = true
+        const token = action.payload.token
+        const user = action.payload.user
+        state.user = user
+        api.setAuthorization(token)
+        localStorage.setItem('token', token)
+      });
+      build.addCase(getTraders.pending, (action, state)=>{
+      }).addCase(getTraders.fulfilled, (state, action)=>{
+        state.traders = action.payload
+        state.loading = false
+      })
   }
+})
 
-);
-
-export const AUTH_ACTIONS = {...authSlice.actions};
+export const AUTH_ACTIONS = {...authSlice.actions, logInUser, getTraders}
 export default authSlice.reducer

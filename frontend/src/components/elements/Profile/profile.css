@@ -1,0 +1,113 @@
+.profile-container{
+    padding:5px;
+    width: 100%;
+    background-color: var(--side-bar-color);
+}
+
+.profile-wrapper{
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   margin-top:2rem;
+}
+
+
+.profile-info-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(245, 248, 250);
+    width: 100%;
+    border: 2px solid rgb(155, 202, 243);
+    border-radius: 5px;
+}
+
+.profile-info-card p{
+    padding:0;
+    margin: 0;
+  
+}
+
+.profile-image-card{
+    position:absolute;
+    top:-40px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: white;
+    border:2px solid rgb(155, 202, 243);
+    overflow: hidden;
+   
+}
+
+.profile-info-card i{
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(245, 248, 250);
+    font-size: 3.5rem;
+    padding-top:10px;
+}
+
+.profile-bio{
+    margin-top:5%;
+    padding:10px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.profile-bio .profile-name{
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding:5px;
+}
+.profile-bio .profile-contact{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    background-color: rgb(245, 249, 253);
+    padding:5px;
+    border-radius: 5px;
+    box-shadow: 2px 3px 5px aliceblue;
+    border-top: 1px solid rgb(186, 214, 239);
+    margin-top:10px;
+}
+
+.profile-contact .hv{
+    width:1px;
+    height: 20px;
+    background-color: rgb(155, 191, 222);
+}
+
+.profile-fund-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+.profile-fund{
+    padding:10px;
+}
+.profile-fund p, .profile-fund h2{
+    font-size: 14px;
+    margin:0;
+    padding:0;
+}
+
+.profile-fund h2{
+    font-size: 18px;
+    font-weight: 800;
+    padding-top:12px;
+}

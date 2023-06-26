@@ -19,10 +19,10 @@ setAuthorization:(token)=>{
 //     api_backend.defaults.headers.Authorization;
 // },
 
-signUp: async (formData)=>{
+signUp: (formData)=>{
     try{
-        const res = await api_backend.post('signup', formData)
-        return res.data
+        const res =api_backend.post('signup', formData)
+        return res
     }catch(err){
         console.log(err)
     }
@@ -33,9 +33,14 @@ signin: (formData)=>{
     return res
 },
 
-getAllUsers: ()=>{
-    const res = api_backend.post('users')
+getTrader:(trader_id)=>{
+    const res = api_backend.get(`trader/${trader_id}`)
     return res.data
+}
+,
+getAllTraders: ()=>{
+    const res = api_backend.get('traders')
+    return res
 },
 
 generateData: (formData)=>{

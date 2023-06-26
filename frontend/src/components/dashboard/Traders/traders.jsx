@@ -1,8 +1,7 @@
 
-
-export const Traders = () => (
+export const Trader = () => (
     <div className="trader">
-        <p>Trader</p>
+      <p>trader</p>
     </div>
   );
   

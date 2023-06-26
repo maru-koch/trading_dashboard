@@ -17,6 +17,7 @@ export * from './Card'
 export * from './Logo'
 export * from './Transactions'
 export * from './Graph'
+export * from './Profile'
 
 export { Loader } from './Loader'
 export { ListItem } from './ListItem'

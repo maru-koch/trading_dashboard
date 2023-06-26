@@ -42,9 +42,7 @@ export const SignInPage = (setAuth, setUser) => {
             setError(errors)
         }
 
-      const res = await api.signin(form_data)
-      setAuth(res.data)
-      console.log(res.data)
+      dispatch(AUTH_ACTIONS.logInUser(form_data))
     }
 
 

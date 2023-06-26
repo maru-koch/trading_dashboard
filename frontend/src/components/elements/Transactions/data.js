@@ -1,71 +1,71 @@
 export const data= [
        {
-        'username':'ahmed',
+        'username':'ahmed musa',
         'type': 'withdrawal',
         'amount':'$280',
         'status':'sucess',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
-        'type': 'withdrawal',
-        'amount':'$280',
+        'username':'Jones Michael',
+        'type': 'transfer',
+        'amount':'$620',
         'status':'pending',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
-        'type': 'withdrawal',
-        'amount':'$280',
+        'username':'Ayo Kasheem',
+        'type': 'deposit',
+        'amount':'$20',
         'status':'sucess',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
+        'username':'Amake Udenwa',
         'type': 'withdrawal',
-        'amount':'$280',
+        'amount':'$880',
         'status':'sucess',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
+        'username':'Habebaab Azeez',
         'type': 'withdrawal',
-        'amount':'$280',
+        'amount':'$180',
         'status':'declined',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
-        'type': 'withdrawal',
-        'amount':'$280',
+        'username':'Jerry Mayor',
+        'type': 'transfer',
+        'amount':'$950',
         'status':'sucess',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
+        'username':'Usman Fuller',
         'type': 'withdrawal',
-        'amount':'$280',
+        'amount':'$0',
         'status':'pending',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
+        'username':'Ayodele Adewale',
         'type': 'withdrawal',
-        'amount':'$280',
+        'amount':'$110',
         'status':'sucess',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
+        'username':'Chioma Rema',
         'type': 'withdrawal',
-        'amount':'$280',
+        'amount':'$424',
         'status':'sucess',
         'date':'12/06/2023'
        },
        {
-        'username':'ahmed',
+        'username':'Tosin Micha',
         'type': 'withdrawal',
-        'amount':'$280',
+        'amount':'$15',
         'status':'declined',
         'date':'12/06/2023'
        }

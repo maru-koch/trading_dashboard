@@ -8,7 +8,7 @@ return(
     <main className="metrics__container">
         <div className="metrics__wrapper">
          
-            <Metrics num={16} title={'Active Accounts'} />
+            <Metrics num={10} title={'Active Accounts'} />
             <Metrics num={56} title={'Transfers'}/>
             <Metrics num={34} title={'Request'}/>
        

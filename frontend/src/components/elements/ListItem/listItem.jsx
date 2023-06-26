@@ -1,17 +1,17 @@
 
 import PropTypes from 'prop-types';
 import classes from './listItem.module.css'
+import { useNavigate } from 'react-router-dom';
 
-export const ListItem = ({icon="fa fa-chevron-right", user_name, earnings}) =>{
+export const ListItem = ({icon, traderInfo}) =>{
 
-    // creates a single list Item e.g > 2 Devices
-    // where '>' is the chevron icon and the item is '2 Devices'
-    
+    const navigate = useNavigate()
+
     return (
-        <li className ={classes.listItem__container}>
+        <li className ={classes.listItem__container} onClick={()=>navigate(`traders/${traderInfo.id}`)}>
             <i className={icon}></i>
-            <p>{user_name}</p>
-            <p className={classes.amount}>{earnings}</p>
+            <p className={classes.listItem__name}>{traderInfo.first_name} {traderInfo.last_name}</p>
+            <p className={classes.amount}>{traderInfo.amount}</p>
         </li>
     )
 }

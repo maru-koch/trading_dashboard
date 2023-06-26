@@ -1,52 +1,55 @@
 import { Suspense, useState } from 'react';
 import {Routes, Route, Navigate, Outlet, useLocation} from 'react-router-dom'
-import { Home, Traders, TraderDetail} from './components/dashboard';
+import { Home, TraderDetail} from './components/dashboard';
 import { Dashboard, SignInPage, SignUpPage } from './pages';
 import { AuthLayout } from './layout/AuthLayout';
-import { ROUTES } from './paths/routes';
-import { useSelector, useStore} from 'react-redux';
+import { useSelector} from 'react-redux';
 import './App.css';
 import auth from './api/endpoints';
+import { Admin } from './components/dashboard/Home/Admin';
+import { Profile } from './components/elements';
 
+function App() {
+
+  const [isAuth, setAuth] = useState(false)
+
+  
 const PrivateOutlet = () => {
   // requires login to access the outlets
-  const { isAuthorized: isAuth} = useSelector(state => state.auth);
+
+  const { isAuthorized: isAuth } = useSelector(state => state.auth);
 
   const location = useLocation()
-  if (!true) {
-        return <Navigate to="/" state={{ from: location }}/>;
+  if (!isAuth) {
+        return <Navigate to="/"/>;
       }
   return (
-    <div>
-      <Suspense fallback="loading...">
-        <Outlet />
-      </Suspense>
-    </div>
+      <div>
+        <Suspense fallback="loading...">
+          <Outlet />
+        </Suspense>
+      </div>
   );
 };
 
 
 const ProtectedOutlet = () => {
   // does not require log in to access the outlets
-  const {isAuthorized: isAuth, user} = useSelector(state => state.auth);
-  const store = useStore()
-
-  console.log(store.auth)
-
-  console.log('IS AUTH?', isAuth)
-  return !true ? (
+  const {user, isAuthorized} = useSelector(state => state.auth);
+  console.log("USER:", user, isAuthorized)
+  const location = useLocation()
+  return !isAuthorized ? (
     <AuthLayout>
       <Suspense fallback="loading...">
         <Outlet />
       </Suspense>
     </AuthLayout>
   ) : (
-    <Navigate to="/dashboard" />
+    <Navigate to="/dashboard" state={{ from: location }} />
   );
 };
 
-function App() {
-  const [auth, setAuth] = useState({})
+
   return (
     <>
       <Routes>
@@ -56,9 +59,11 @@ function App() {
           </Route>
           <Route path='dashboard' element={<PrivateOutlet/>}>
               <Route element={<Dashboard/>}>
-                  <Route index element={<Home/>}/>
-                  <Route path='trader' element={<Traders/>}/>
-                  <Route path='trader/:id' element={<TraderDetail/>}/>
+                  <Route path='' element={<Home/>}>
+                       <Route path='' element={<Admin/>}/>
+                       <Route path='traders/:id' element={<TraderDetail/>}/>
+                  </Route>
+                  {/* <Route path='trader/:id' element={<TraderDetail/>}/> */}
               </Route>
           </Route>
       </Routes>

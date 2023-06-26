@@ -4,7 +4,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4rem;
+  padding-left:4rem;
 }
 
+.header-container{
+  width: 270px;
+  display: grid;
+  gap:5px;
+  grid-template-columns: 1fr 1fr 8fr;
+  background-color: var(--side-bar-color);
+  border-radius: 50px;
+  align-items: center;
+  margin:0 20px;
 
+}
+
+.header-container h3{
+  background-color: aliceblue;
+  color: var(--main-color);
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding:5px;
+  margin: 5px;
+  height: 30px;
+  width: 30px;
+  border: 2px solid var(--secondary-color);
+}
+
+.header-container i{
+  color: var(--secondary-color);
+  margin-right:20px;
+}

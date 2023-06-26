@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Admin} from "./Admin/admin";
+import { AdminIndex} from "./Admin/admin-index";
 import { Trader } from "./Trader/trader"
 import './home.css'
 export const Home=()=>{
@@ -9,7 +9,7 @@ export const Home=()=>{
 
     return (
         <div className={'home'}>
-            {user.is_admin?<Admin/>:<Trader/>} 
+            {user.is_admin?<AdminIndex/>:<Trader/>} 
         </div>
     )
 }
