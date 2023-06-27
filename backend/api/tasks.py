@@ -13,7 +13,7 @@ from django.db.utils import DatabaseError
 day_opened:int=None
 day_closed:int=None
 
-#@shared_task
+@shared_task
 def create_users():
     """ Creates ten new users if there are no users in the database """
 
@@ -28,6 +28,7 @@ def create_users():
     # trades.apply_async()
 
     for user in users:
+        print(user)
         generate_user_trades(user)
 
 def create_trades(user, pair, units, fund):

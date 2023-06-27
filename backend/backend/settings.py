@@ -41,7 +41,7 @@ CUSTOM_APPS =[
     'api.account',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_celery_results',
+    # 'django_celery_results',
     'corsheaders'
 ]
 
@@ -159,7 +159,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CELERY CONFIGURATION
 CELERY_TIME_ZONE='Africa/Lagos'
 CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 30 * 60
+
 # CELERY_RESULT_BACKEND = "django-db"
 
 # MAIN CELERY CONFIG 

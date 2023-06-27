@@ -17,4 +17,4 @@ def debug_task(self):
 
 
 # TO RUN CELERY ENTER IN TERMINAL
-# celery -A backend worker --loglevel=info
+# celery -A backend worker --loglevel=info --pool=solo
