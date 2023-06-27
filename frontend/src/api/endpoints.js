@@ -43,10 +43,15 @@ getAllTraders: ()=>{
     return res
 },
 
-generateData: (formData)=>{
-    const res = api_backend.post('generate-trades', formData)
-    return res.data
+generateData: ()=>{
+    const res = api_backend.get('generate-trades')
+    return res
 },
+
+checkTaskStatus:(task_id)=>{
+    const res = api_backend.get(`task-tastus/${task_id}`)
+    return res
+}
 }
 
 export default auth

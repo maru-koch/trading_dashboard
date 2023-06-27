@@ -3,13 +3,13 @@ import {Table, Graph, Interval, Metrics, MetricHolder} from '../../../elements'
 
 
 
-export const Trader = () => (
+export const Trader = ({trader}) => (
     <div className="trader">
         <section>
             <div style={{display:"grid", gridTemplateColumns:'7fr 3fr'}}>
                 <div> 
                     <CardHolder/>
-                    <Graph/>
+                    <Graph trader={trader}/>
                 </div>
                 
                 <div>

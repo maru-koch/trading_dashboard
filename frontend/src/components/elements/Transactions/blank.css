@@ -1,0 +1,27 @@
+.blank-container{
+    background-color: red;
+    width: 100%;
+    height: 100px;
+}
+
+.black-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blank-black{
+    padding:2rem;
+    text-align: center;
+}
+
+.blank-blank i{
+    font-size:4rem;
+    font-weight: 800;
+    color: rgb(172, 212, 247);
+}
+
+.blank-blank h3{
+    font-size: 12px;
+    color:gray;
+}

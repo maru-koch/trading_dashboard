@@ -3,6 +3,7 @@ import './profile.css'
 import { Button } from "../Button"
 
 export const Profile=({profile})=>{
+    console.log(profile.fund)
     return(
         <div className="profile-container">
             <div className="profile-wrapper">
@@ -28,7 +29,7 @@ export const Profile=({profile})=>{
                 <div className="profile-fund-container">
                     <div className="profile-fund">
                         <p>Account Balance</p>
-                        <h2>$ 12,000</h2>
+                        <h2>$ {profile?.fund?.amount}</h2>
                     </div>
                     
                     <div>

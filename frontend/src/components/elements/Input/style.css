@@ -5,11 +5,15 @@
   font-size: 14px;
   font-family: Poppins;
   font-weight: 300;
-  padding:5px;
+  padding:3px 20px;
 }
 
+.form-input:active{
+  outline: none;
+  border: 2px solid green
+}
 .lg {
-  width: 100%;
+  width: 88%;
 }
 
 .md,

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
+import { Loader } from "../Loader";
+import {useSelector} from 'react-redux'
+
 import './index.css'
 
 const initialState ={
@@ -20,23 +23,48 @@ const initialState ={
           }
         },
         xaxis: {
-          categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,22,23]
+          categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,]
         }
       },
       series: [
         {
           name: "trades",
-          data: [3.0, 22.17, 51.0, -5, -15, 16, 27, 19, 31, 41, 15, -5, .9, 0.6, .7, 20],
+          data: [],
           
         }
       ],
     };
   
-export const Graph=({row, column})=>{
+export const Graph=({trader})=>{
     // Displays the energy consumption for a device
     // shows estimated total, average, minimum, and maximum
 
-    const [state, setState] = useState(initialState)
+    const [tradeData, setTradeData] = useState(initialState)
+  
+  
+    const extractTradeData=()=>{
+      const trade_data = []
+      
+      try{
+
+        const trades = trader.trades
+        trade_data.push(100)
+        for (let trade of trades){
+          const amount = trade.balance;
+          trade_data.push(amount)
+        }
+      }catch(err){
+        console.log(err)
+      }finally{
+        setTradeData({...tradeData, series:[{name:'trades', data:trade_data}]})
+      }
+     
+    }
+
+  useEffect(()=>{
+    extractTradeData()
+
+  }, [trader])
 
 return(
     <main className="graph__container">
@@ -44,7 +72,7 @@ return(
             <div className="graph__header">
                 <div className="graph__title">
                     <p>Total Earnings</p>
-                    <h2>$460, 000</h2>
+                    <h2>$ {trader?.fund?.amount}</h2>
                 </div>
                 <ul className="intervals">
                     <li>1d</li>
@@ -55,15 +83,19 @@ return(
             </div>
     
             <div className="graph_chart">
+                  {true?
                   <div className="graph_mixed_chart">
                       <Chart
-                      options={state.options}
-                      series={state.series}
+                      options={tradeData.options}
+                      series={tradeData.series}
                       type="line"
                       width={'600'}
                       height={'270'}
                       />
                   </div>
+                  :
+                  <Loader width={70} height={70}/>
+                }
             </div>
         </section>
     </main>

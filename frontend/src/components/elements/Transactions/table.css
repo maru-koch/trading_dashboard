@@ -9,6 +9,7 @@
     font-weight: 600;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: gray;
+    margin-left:2rem;
 }
 
 .table__container{
@@ -36,7 +37,8 @@ table td{
 table thead{
     width: 100%;
     background-color: var(--main-color);
-    color: var(--side-bar-color)
+    color: var(--side-bar-color);
+    font-weight: 400;
 }
 
 table th{
