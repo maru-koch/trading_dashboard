@@ -26,14 +26,12 @@ from api.tasks import create_users
 
 class TradersView(ListAPIView):
     """ Retrieves list of all registered Users """
-
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
 class UserDetailView(RetrieveUpdateDestroyAPIView):
     """ Retrieves the detail of a user """
-
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]

@@ -5,8 +5,6 @@ import authReducer from './auth_slice';
 const store = configureStore({
   reducer:{
       auth: authReducer,
-      // traders:tradersReducer,
-
   },
 
     //...

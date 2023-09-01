@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7@^d@tezpvqw92d3u+_rn9ayx7wpo8o-_c$dp=7%ej+z%g1h=)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
@@ -42,7 +42,9 @@ CUSTOM_APPS =[
     'rest_framework',
     'rest_framework.authtoken',
     # 'django_celery_results',
-    'corsheaders'
+    'corsheaders',
+    # 'django_extensions',
+    # 'sslserver',
 ]
 
 INSTALLED_APPS = [
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles'
+    
 ] + CUSTOM_APPS
 
 MIDDLEWARE = [
